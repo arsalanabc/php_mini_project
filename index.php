@@ -1,10 +1,11 @@
 <?php
 
 require("controller/Registration.php");
-require("config/db_config.php");
+require_once("config/db_config.php");
 
 if(isset($_POST["submit"])){
 	$registration = new Registration($conn);
+	$registration->login($_POST["username"],$_POST["password"]);
 }
 
 ?>
