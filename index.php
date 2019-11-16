@@ -1,5 +1,6 @@
 <?php
 
+require_once("ENV.php");
 require("controller/Registration.php");
 require_once("config/db_config.php");
 
@@ -18,7 +19,7 @@ if(isset($_POST["submit"])){
 
 <div>
 	<h3>welcome to my mini project </h3> 
-	<p>Please login below </p>
+	<p>Please login below or sign up <a href="<?php echo SITE_URL."/view/registration/signup.php";?>"> here </a> </p>
 </div>
 
 <div id="login">
