@@ -1,7 +1,17 @@
+<?php
+
+require("controller/Registration.php");
+require("config/db_config.php");
+
+if(isset($_POST["submit"])){
+	$registration = new Registration($conn);
+}
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
+	<title>Mini Project</title>
 </head>
 <body>
 
