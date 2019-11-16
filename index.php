@@ -23,11 +23,11 @@ if(isset($_POST["submit"])){
 <div id="login">
 	<form method="post" action="">
 		<label> Username</label>
-		<input type="text" name="username">
+		<input type="text" name="username" required>
 		<br>
 		<br>
 		<label> Password</label>
-		<input type="Password" name="password">
+		<input type="Password" name="password" required>
 		<br>
 		<br>
 		<input type="submit" name="submit">
