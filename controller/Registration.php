@@ -13,14 +13,20 @@ class Registration {
 	}
 
 	public function login ($username, $password){
-	    if($username !== "" && $password !== ""){
-	        $login_query = "SELECT * FROM users WHERE username='$username'
-               AND password='md5($password)'";
-	        $result = mysqli_query($this->DB, $login_query);
-	        if($result->num_rows > 0){
-	            echo "login pass";
+        $errors = array() ;
+        if(self::is_empty($username)){array_push($errors, "Username cannot be empty");}
+        if(self::is_empty($password)) {array_push($errors,"Password cannot be empty");}
+
+        if(sizeof($errors) > 0){return $errors;}
+        else {
+	        if($this->user->login($username, $password)){
+                if(User::is_login()){
+                    echo "login successful".$_SESSION['user_id'];
+//                    header("Location: ".SITE_URL."/index.php");
+                }
             } else {
-	            echo "login failed";
+                $errors = ['Login failed, please make sure username and password are correct'];
+                return $errors;
             }
         }
     }

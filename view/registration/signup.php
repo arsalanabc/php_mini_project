@@ -26,7 +26,7 @@ if(isset($_POST['submit'])){
     <p>Please sign up below or login <a href="<?php echo SITE_URL."/index.php" ?>"> here </a> </p>
 </div>
 
-<div id="login">
+<div id="sign_up">
     <form method="post" name="signup_form" action="<?php echo $_SERVER['PHP_SELF']; ?>" >
         <label> First Name</label>
         <input type="text" name="first_name" value="<?php echo $_POST['first_name'];?>" required>
