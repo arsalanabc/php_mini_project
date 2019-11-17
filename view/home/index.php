@@ -8,7 +8,7 @@ $home_controller = new HomeController($conn);
 $data = $home_controller->index();
 
 if(isset($_POST['add_restaurant'])){
-    var_dump($_POST);
+    $home_controller->add_restaurant($_POST);
 }
 
 ?>
