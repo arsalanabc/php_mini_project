@@ -6,10 +6,8 @@ session_start();
 
 class Registration {
 	private $DB;
-	private $user;
 	function __construct($db){
 		$this->DB = $db;
-		$this->user = new User($db);
 	}
 
 	public function login ($username, $password){
@@ -19,7 +17,11 @@ class Registration {
 
         if(sizeof($errors) > 0){return $errors;}
         else {
-	        if($this->user->login($username, $password)){
+            $login_query = "SELECT id FROM users WHERE username='$username' AND password=md5('$password')";
+            $result = mysqli_query($this->DB, $login_query);
+            $login_data = mysqli_fetch_object($result);
+            if($result->num_rows > 0){
+                $_SESSION['user_id'] = $login_data->id;
                 if(User::is_login()){
                     header("Location: ".SITE_URL."/view/home/index.php");
                 }
@@ -43,7 +45,7 @@ class Registration {
 
         if(sizeof($data['error']) > 0){return $data;}
         else {
-            if($this->user->sign_up($data)){
+            if($this->signup_logic($data)){
                 $_SESSION['sign_up'] = true;
                 header("Location: ".SITE_URL."/index.php");
             } else {
@@ -68,6 +70,23 @@ class Registration {
 
 	static function validate_passwords ($pass1, $pass2){
 	    return $pass1 == $pass2;
+    }
+
+    private function signup_logic ($data){
+        $username = $this->clean_string($data['username']);
+        $email = $this->clean_string($data['email']);
+        $first_name = $this->clean_string($data['first_name']);
+        $last_name = $this->clean_string($data['last_name']);
+        $password = md5($data['password']);
+
+        $query = "INSERT INTO users (username, email, first_name, last_name, password) 
+                VALUES ('$username','$email', '$first_name', '$last_name', '$password')";
+        $result = mysqli_query($this->DB, $query) or die("Sign up failed: " . $this->DB->connect_error);
+        return $result;
+	}
+
+    private function clean_string($string){
+        return $this->DB->real_escape_string($string);
     }
 }
 ?>
