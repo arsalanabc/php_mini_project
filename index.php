@@ -18,8 +18,8 @@ if(isset($_POST["submit"])){
 <body>
 
 <div>
-	<h3>welcome to my mini project </h3> 
-	<p>Please login below or sign up <a href="<?php echo SITE_URL."/view/registration/signup.php";?>"> here </a> </p>
+	<h3>welcome to my mini project </h3>
+	<?php echo Registration::sign_up_message();?>
 </div>
 
 <div id="login">

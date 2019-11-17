@@ -1,9 +1,15 @@
 <?php
+require_once BASE_PATH."/ENV.php";
+include_once BASE_PATH."/model/User.php";
+
+session_start();
 
 class Registration {
 	private $DB;
+	private $user;
 	function __construct($db){
 		$this->DB = $db;
+		$this->user = new User($db);
 	}
 
 	public function login ($username, $password){
@@ -31,7 +37,24 @@ class Registration {
         if(!self::validate_passwords($data['password'], $data['password_confirm'])) {array_push($data["error"], "Passwords do not match");}
 
         if(sizeof($data['error']) > 0){return $data;}
+        else {
+            if($this->user->sign_up($data)){
+                $_SESSION['sign_up'] = true;
+                header("Location: ".SITE_URL."/index.php");
+            } else {
+                 array_push($data["error"], "sign up failed, please try again");
+                 return $data;
+            }
+        }
+    }
 
+    static function sign_up_message(){
+	    if(isset($_SESSION['sign_up']) and $_SESSION['sign_up']){
+	        echo "<h4> Sign up complete. Please login below </h4>";
+            unset($_SESSION['sign_up']);
+        } else {
+            echo "<p>Please login below or sign up <a href=\"".SITE_URL."/view/registration/signup.php\"> here </a> </p>";
+        }
     }
 
     static function is_empty($field ) {
