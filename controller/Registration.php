@@ -21,8 +21,7 @@ class Registration {
         else {
 	        if($this->user->login($username, $password)){
                 if(User::is_login()){
-                    echo "login successful".$_SESSION['user_id'];
-//                    header("Location: ".SITE_URL."/index.php");
+                    header("Location: ".SITE_URL."/view/home/index.php");
                 }
             } else {
                 $errors = ['Login failed, please make sure username and password are correct'];
