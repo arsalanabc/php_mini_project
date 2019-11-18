@@ -28,6 +28,16 @@ class Restaurant
         }
     }
 
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
     private function add () {
         $query = "INSERT INTO restaurants (name) 
                 VALUES ('$this->name')";
