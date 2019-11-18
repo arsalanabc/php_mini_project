@@ -4,18 +4,10 @@ require_once BASE_PATH."/config/db_config.php";
 require(BASE_PATH."/controller/HomeController.php");
 
 $home_controller = new HomeController($conn);
-$data = $home_controller->index();
+$data = $home_controller->index($_POST);
 
 $user = $data['user'];
 $restaurants = $data['restaurants'];
-
-if(isset($_POST['add_restaurant'])){
-    $home_controller->add_restaurant($_POST, $user);
-}
-
-if(isset($_POST['logout'])){
-    $home_controller->logout();
-}
 
 
 ?>

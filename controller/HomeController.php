@@ -14,12 +14,13 @@ class HomeController
         $this->DATABASE_CONN = $conn;
     }
 
-    public function index()
+    public function index($post_data)
     {
         if (!Registration::is_logged_in()) {
             header("Location: " . SITE_URL . "/index.php");
             return false;
         }
+        if(isset($post_data['logout'])){$this->logout();return false;}
 
         $user = new User($this->DATABASE_CONN, $_SESSION['user_id']);
         $data['user'] = $user;
@@ -27,6 +28,10 @@ class HomeController
 
         function getname($r){return $r->getName();}
         $data['restaurant_names'] = array_map('getname', $data['restaurants']);
+
+        if(isset($post_data['add_restaurant'])){
+            $this->add_restaurant($post_data, $user);
+        }
 
         return $data;
     }
