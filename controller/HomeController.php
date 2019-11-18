@@ -22,11 +22,12 @@ class HomeController
         }
         if(isset($post_data['logout'])){$this->logout();return false;}
 
-        $user = new User($this->DATABASE_CONN, $_SESSION['user_id']);
+        $user = new User($this->DATABASE_CONN);
+        $user->set_user_id( $_SESSION['user_id']);
         $data['user'] = $user;
         $data['restaurants'] = $this->get_restaurants($user);
 
-        function getname($r){return $r->getName();}
+        function getname($r){return $r->get_name();}
         $data['restaurant_names'] = array_map('getname', $data['restaurants']);
 
         if(isset($post_data['add_restaurant'])){
@@ -40,23 +41,24 @@ class HomeController
     {
         $restaurant_name = $restaurant_data['restaurant_name'];
         $review_text = $restaurant_data['review'];
-        $restaurant = new Restaurant($this->DATABASE_CONN, $restaurant_name, $user);
+        $restaurant = new Restaurant($this->DATABASE_CONN);
+        $restaurant->set_name($restaurant_name);
+        $restaurant->set_user($user);
 
-        $review = new Review($review_text);
-        $restaurant->add_review($review);
+        $restaurant->add_review(new Review($review_text));
         $restaurant->sync();
     }
 
     public function get_restaurants($user)
     {
         $restaurants = array();
-        $user_id = $user->getUserId();
+        $user_id = $user->get_user_id();
         $query = "SELECT r.* FROM user_restaurant as ur LEFT JOIN restaurants as r ON ur.restaurant_id=r.id WHERE ur.user_id='$user_id'";
         $result = mysqli_query($this->DATABASE_CONN, $query);
 
         while ($row = mysqli_fetch_object($result)) {
             $new_restaurant = new Restaurant($this->DATABASE_CONN, $row->name, $user);
-            $new_restaurant->setId($row->id);
+            $new_restaurant->set_id($row->id);
             array_push($restaurants, $new_restaurant);
         }
 

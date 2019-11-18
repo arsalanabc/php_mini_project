@@ -7,13 +7,17 @@ class User {
     private $user_id;
     private $username;
 
-    function __construct($db, $id)
+    function __construct($db)
     {
         $this->DATABASE_CONN = $db;
-        $this->user_id = $id;
     }
 
-    public function getUsername()
+    public function set_user_id($user_id)
+    {
+        $this->user_id = $user_id;
+    }
+
+    public function get_username()
     {
         if(!$this->username){
             $login_query = "SELECT username FROM users WHERE id='$this->user_id'";
@@ -24,7 +28,7 @@ class User {
         return $this->username;
     }
 
-    public function getUserId()
+    public function get_user_id()
     {
         return $this->user_id;
     }

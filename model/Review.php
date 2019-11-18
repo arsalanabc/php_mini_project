@@ -23,12 +23,12 @@ class Review
         return $this->timestamp;
     }
 
-    public function getId()
+    public function get_id()
     {
         return $this->id;
     }
 
-    public function setId($id)
+    public function set_id($id)
     {
         $this->id = $id;
     }

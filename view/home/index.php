@@ -30,7 +30,7 @@ $restaurants = $data['restaurants'];
 <body>
 
 <div>
-    <h3>Hello <?php echo $user->getUsername();?>, welcome to my mini project
+    <h3>Hello <?php echo $user->get_username();?>, welcome to my mini project
         <form method="post" action="">
             <input type="submit" name="logout" value="logout"/>
         </form>
@@ -54,7 +54,7 @@ $restaurants = $data['restaurants'];
 <h3>Restaurants</h3>
 
     <?php foreach($restaurants as $restaurant){?>
-        <div><?php echo "Name: ".$restaurant->getName();?></div>
+        <div><?php echo "Name: ".$restaurant->get_name();?></div>
             <?php foreach($restaurant->get_reviews() as $review){?>
                 <div><?php echo "Review: ".$review->get_content()." posted at ".$review->get_timestamp();?></div>
 
