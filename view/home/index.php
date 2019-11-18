@@ -23,7 +23,7 @@ if(isset($_POST['add_restaurant'])){
 <body>
 
 <div>
-    <h3>Hello <? echo $user->getUsername();?>, welcome to my mini project </h3>
+    <h3>Hello <?php echo $user->getUsername();?>, welcome to my mini project </h3>
 </div>
 
 <div id="restaurant-view">
@@ -44,7 +44,11 @@ if(isset($_POST['add_restaurant'])){
 
     <?php foreach($restaurants as $restaurant){?>
         <div><?php echo "Name: ".$restaurant->getName();?></div>
+            <?php foreach($restaurant->get_reviews() as $review){?>
+                <div><?php echo "Review: ".$review->get_content()." posted at ".$review->get_timestamp();?></div>
 
+            <?php }?></div>
+    <br>
     <?php }?></div>
 </body>
 </html>

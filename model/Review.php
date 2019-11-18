@@ -5,15 +5,22 @@ class Review
 {
     private $id;
     private $content;
+    private $timestamp;
 
-    function __construct($name)
+    function __construct($content, $timestamp=null)
     {
-        $this->content = $name;
+        $this->content = $content;
+        $this->timestamp = $timestamp;
     }
 
-    public function getContent()
+    public function get_content()
     {
         return $this->content;
+    }
+
+    public function get_timestamp()
+    {
+        return $this->timestamp;
     }
 
     public function getId()
