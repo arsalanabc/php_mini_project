@@ -23,6 +23,17 @@ if(isset($_POST['logout'])){
 <html>
 <head>
     <title>Mini Project</title>
+    <title>jQuery UI Autocomplete - Default functionality</title>
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script>
+  $( function() {
+    $( "#restaurant_name" ).autocomplete({
+      source: <? echo json_encode($data['restaurant_names'])?>
+    });
+  } );
+  </script>
 </head>
 <body>
 
@@ -37,7 +48,7 @@ if(isset($_POST['logout'])){
 <div id="restaurant-view">
     <form method="post" name="add_restaurant" action="<?php echo $_SERVER['PHP_SELF'];?>">
         <label> Name</label>
-        <input type="text" name="restaurant_name" required>
+        <input type="text" name="restaurant_name" id="restaurant_name" required>
         <br>
         <br>
         <label> Review </label>
