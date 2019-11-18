@@ -5,10 +5,10 @@ require_once BASE_PATH."/config/db_config.php";
 require(BASE_PATH."/controller/HomeController.php");
 
 $home_controller = new HomeController($conn);
-$data = $home_controller->index();
+$user = $home_controller->index();
 
 if(isset($_POST['add_restaurant'])){
-    $home_controller->add_restaurant($_POST);
+    $home_controller->add_restaurant($_POST, $user);
 }
 
 ?>
@@ -20,7 +20,7 @@ if(isset($_POST['add_restaurant'])){
 <body>
 
 <div>
-    <h3>Hello <? echo $data->getUsername();?>, welcome to my mini project </h3>
+    <h3>Hello <? echo $user->getUsername();?>, welcome to my mini project </h3>
 </div>
 
 <div id="restaurant-view">

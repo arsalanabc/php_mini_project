@@ -2,6 +2,7 @@
 
 include BASE_PATH."/model/User.php";
 include BASE_PATH."/model/Restaurant.php";
+include BASE_PATH."/model/Review.php";
 
 class HomeController {
     private $DATABASE_CONN;
@@ -21,12 +22,14 @@ class HomeController {
         return $data;
     }
 
-    public function add_restaurant ($restaurant_data) {
+    public function add_restaurant ($restaurant_data, $user) {
         $restaurant_name =  $restaurant_data['restaurant_name'];
-        $review =  $restaurant_data['review'];
+        $review_text =  $restaurant_data['review'];
+        $restaurant = new Restaurant($this->DATABASE_CONN, $restaurant_name, $user);
 
-        $restaurant = new Restaurant($this->DATABASE_CONN, $restaurant_name);
-        $restaurant->add();
+        $review = new Review($review_text);
+        $restaurant->add_review($review);
+        $restaurant->sync();
     }
 }
 ?>
