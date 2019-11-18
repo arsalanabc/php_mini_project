@@ -2,7 +2,6 @@
 require_once BASE_PATH."/ENV.php";
 include_once BASE_PATH."/model/User.php";
 
-session_start();
 
 class Registration {
 	private $DB;
@@ -22,7 +21,7 @@ class Registration {
             $login_data = mysqli_fetch_object($result);
             if($result->num_rows > 0){
                 $_SESSION['user_id'] = $login_data->id;
-                if(User::is_login()){
+                if(self::is_logged_in()){
                     header("Location: ".SITE_URL."/view/home/index.php");
                 }
             } else {
@@ -70,6 +69,15 @@ class Registration {
 
 	static function validate_passwords ($pass1, $pass2){
 	    return $pass1 == $pass2;
+    }
+
+    static function is_logged_in (){
+        return (isset($_SESSION['user_id']) and $_SESSION['user_id']);
+    }
+
+    static function logout (){
+        session_destroy();
+        header("Location: ".SITE_URL."/index.php");
     }
 
     private function signup_logic ($data){

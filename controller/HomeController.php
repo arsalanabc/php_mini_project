@@ -1,6 +1,7 @@
 <?php
 
-include BASE_PATH."/model/User.php";
+include BASE_PATH."/controller/Registration.php";
+include_once BASE_PATH."/model/User.php";
 include BASE_PATH."/model/Restaurant.php";
 include BASE_PATH."/model/Review.php";
 
@@ -13,8 +14,9 @@ class HomeController {
     }
 
     public function index () {
-        if(!User::is_login()){
+        if(!Registration::is_logged_in()){
             header("Location: ".SITE_URL."/index.php");
+            return false;
         }
 
         $user = new User($this->DATABASE_CONN, $_SESSION['user_id']);
@@ -46,6 +48,10 @@ class HomeController {
         }
 
         return $restaurants;
+    }
+
+    public function logout(){
+        Registration::logout();
     }
 }
 ?>

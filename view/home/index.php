@@ -1,5 +1,4 @@
 <?php
-
 require_once("../../ENV.php");
 require_once BASE_PATH."/config/db_config.php";
 require(BASE_PATH."/controller/HomeController.php");
@@ -14,6 +13,11 @@ if(isset($_POST['add_restaurant'])){
     $home_controller->add_restaurant($_POST, $user);
 }
 
+if(isset($_POST['logout'])){
+    $home_controller->logout();
+}
+
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -23,7 +27,11 @@ if(isset($_POST['add_restaurant'])){
 <body>
 
 <div>
-    <h3>Hello <?php echo $user->getUsername();?>, welcome to my mini project </h3>
+    <h3>Hello <?php echo $user->getUsername();?>, welcome to my mini project
+        <form method="post" action="">
+            <input type="submit" name="logout" value="logout"/>
+        </form>
+    </h3>
 </div>
 
 <div id="restaurant-view">

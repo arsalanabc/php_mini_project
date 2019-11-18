@@ -28,13 +28,5 @@ class User {
     {
         return $this->user_id;
     }
-
-    static function is_login() {
-        if(isset($_SESSION['user_id']) and $_SESSION['user_id']){
-            return true;
-        } else {
-        return false;
-        }
-    }
 }
 ?>
