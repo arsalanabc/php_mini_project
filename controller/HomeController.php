@@ -24,15 +24,16 @@ class HomeController
 
         $user = new User($this->DATABASE_CONN);
         $user->set_user_id( $_SESSION['user_id']);
+
+        if(isset($post_data['add_restaurant'])){
+            $this->add_restaurant($post_data, $user);
+        }
+
         $data['user'] = $user;
         $data['restaurants'] = $this->get_restaurants($user);
 
         function getname($r){return $r->get_name();}
         $data['restaurant_names'] = array_map('getname', $data['restaurants']);
-
-        if(isset($post_data['add_restaurant'])){
-            $this->add_restaurant($post_data, $user);
-        }
 
         return $data;
     }
@@ -57,7 +58,9 @@ class HomeController
         $result = mysqli_query($this->DATABASE_CONN, $query);
 
         while ($row = mysqli_fetch_object($result)) {
-            $new_restaurant = new Restaurant($this->DATABASE_CONN, $row->name, $user);
+            $new_restaurant = new Restaurant($this->DATABASE_CONN);
+            $new_restaurant->set_name($row->name);
+            $new_restaurant->set_user($user);
             $new_restaurant->set_id($row->id);
             array_push($restaurants, $new_restaurant);
         }
