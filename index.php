@@ -6,7 +6,7 @@ require_once("config/db_config.php");
 
 if(isset($_POST["submit"])){
 	$registration = new Registration($conn);
-    $response = $registration->login($_POST["username"], $_POST["password"]);
+    $response = $registration->login($_POST["email"], $_POST["password"]);
     if($response){
         foreach ($response as $error){
             if($error != null){echo "<p style='color: red'>*".$error."</p>";}
@@ -29,8 +29,8 @@ if(isset($_POST["submit"])){
 
 <div id="login">
 	<form method="post" name="login_form" action="">
-		<label> Username</label>
-		<input type="text" name="username" required>
+		<label> Email</label>
+		<input type="email" name="email" required>
 		<br>
 		<br>
 		<label> Password</label>

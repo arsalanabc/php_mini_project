@@ -9,14 +9,14 @@ class Registration {
 		$this->DB = $db;
 	}
 
-	public function login ($username, $password){
+	public function login ($email, $password){
         $errors = array() ;
-        if(self::is_empty($username)){array_push($errors, "Username cannot be empty");}
+        if(self::is_empty($email)){array_push($errors, "Email cannot be empty");}
         if(self::is_empty($password)) {array_push($errors,"Password cannot be empty");}
 
         if(sizeof($errors) > 0){return $errors;}
         else {
-            $login_query = "SELECT id FROM users WHERE username='$username' AND password=md5('$password')";
+            $login_query = "SELECT id FROM users WHERE email='$email' AND password=md5('$password')";
             $result = mysqli_query($this->DB, $login_query);
             $login_data = mysqli_fetch_object($result);
             if($result->num_rows > 0){
