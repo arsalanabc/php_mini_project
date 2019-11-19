@@ -1,5 +1,5 @@
 <?php
-require_once "../config/db_config.php";
+require_once "../config/Database.php";
 
 // require queries for schemas
 require_once "USER_TABLE.php";
@@ -8,6 +8,8 @@ require_once "USER_RESTAURANT.php";
 require_once "REVIEW_TABLE.php";
 require_once "RESTAURANT_REVIEW.php";
 
+$db = new Database();
+$conn = $db->get_connection();
 
 function run($conn, $query, $msg){
     if(mysqli_query($conn, $query)){

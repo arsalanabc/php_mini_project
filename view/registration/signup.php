@@ -1,10 +1,11 @@
 <?php
 require_once '../../ENV.php';
 require(BASE_PATH."/controller/Registration.php");
-require_once(BASE_PATH."/config/db_config.php");
+require_once(BASE_PATH."/config/Database.php.php");
 
 if(isset($_POST['submit'])){
-    $reg = new Registration($conn);
+    $conn = new Database();
+    $reg = new Registration($conn->get_connection());
     $response = $reg->signup($_POST);
     if($response['error']){
         foreach ($response['error'] as $error){

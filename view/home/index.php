@@ -1,9 +1,10 @@
 <?php
 require_once("../../ENV.php");
-require_once BASE_PATH."/config/db_config.php";
+require_once BASE_PATH."/config/Database.php";
 require(BASE_PATH."/controller/HomeController.php");
 
-$home_controller = new HomeController($conn);
+$conn = new Database();
+$home_controller = new HomeController($conn->get_connection());
 $data = $home_controller->index($_POST);
 
 $user = $data['user'];

@@ -2,10 +2,11 @@
 
 require_once("ENV.php");
 require("controller/Registration.php");
-require_once("config/db_config.php");
+require_once("config/Database.php");
 
 if(isset($_POST["submit"])){
-	$registration = new Registration($conn);
+    $conn = new Database();
+	$registration = new Registration($conn->get_connection());
     $response = $registration->login($_POST["email"], $_POST["password"]);
     if($response){
         foreach ($response as $error){
